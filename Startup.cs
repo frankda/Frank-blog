@@ -32,7 +32,8 @@ namespace FrankBlog
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("InMemoryDb"));
+            services.AddDbContext<BlogDbContext>(options => 
+            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

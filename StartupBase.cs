@@ -19,7 +19,7 @@ namespace FrankBlog
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("InMemoryDb"));
+            services.AddDbContext<BlogDbContext>(options => options.UseSqlServer("BlogDb"));
         }
     }
 }
