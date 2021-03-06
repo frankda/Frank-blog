@@ -9,6 +9,7 @@ namespace FrankBlog.Data
         {
         }
 
+        // this will be used as table name
         public DbSet<BlogModel> Blogs { get; set; }
     }
 }
