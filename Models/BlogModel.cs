@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,5 +13,9 @@ namespace FrankBlog.Models
         [Column(TypeName ="varchar(50)")]
         public string FileName { get; set; }
 
+        public string FileSrc { get; set; }
+
+        [NotMapped]
+        public IFormFile File { get; set; }
     }
 }
