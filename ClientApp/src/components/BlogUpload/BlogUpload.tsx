@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import {Button} from "antd";
+import {Button, Card, Upload} from "antd";
 import { UploadOutlined } from '@ant-design/icons';
+import './BlogUpload.scss';
+import { UploadFile } from 'antd/lib/upload/interface';
 
 export interface FileUpload {
     fileName: string,
-    file: File
+    fileList: File[]
 }
 
 interface FormValidation {
@@ -22,52 +24,50 @@ export default function BlogUpload(props: IProps) {
     // state
     const [formValues, setFormValues] = useState<FileUpload>({} as FileUpload);
     const [errors, setErrors] = useState<FormValidation>({} as FormValidation);
+    const [uploading, setUploading] = useState(false);
+    const [showUploadList, setShowUploadList] = useState(true)
+    const [fileList, setFileList] = useState([] as UploadFile[])
 
-    // ref
-    const fileInput = React.useRef<HTMLInputElement>(null);
+    const beforeUpload = (file: any) => {
+        // TODO: refactor tem
+        const tem = [] as File[];
+        tem.push(file);
+        setFormValues({
+            // ...formValues,
+            fileList: tem,
+            fileName: file.name
+        });
+        setFileList([...fileList, file])
 
-    const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
-        if (e.currentTarget.files && e.currentTarget.files[0] ) {
-            let file = e.currentTarget.files[0];
-            setFormValues({
-                ...formValues,
-                file,
-                fileName: file.name
-            })
-        }
+        return false;
     }
 
+    const onRemove = () => {
+        setFormValues({} as FileUpload);
+        setErrors({} as FormValidation);
+        setFileList([] as UploadFile[]);
+    };
+
     const validate = () => {
-        let validator = {} as FormValidation;
-        validator.fileName = formValues.fileName == '' ? false : true;
+        const validator = {} as FormValidation;
+        validator.fileName = formValues.fileName === '' ? false : true;
         setErrors(validator);
         return Object.values(validator).every(v => v == true)
     }
 
-    // TODO: this reset form function doesn't work
-    const resetForm = () => {
-        setFormValues({} as FileUpload);
-        if (fileInput.current) {
-            fileInput.current.files = null;
-        }
-        setErrors({} as FormValidation);
-    }
-
     const handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        setShowUploadList(true);
         if(validate()) {
+            setUploading(true);
             const formData = new FormData();
-            formData.append('file', formValues.file);
+            formData.append('file', formValues.fileList[0]);
+            // formData.append('files[]', formValues.fileList);
             formData.append('fileName', formValues.fileName);
-            addOrEdit(formData, resetForm);
-        }
-    }
-
-    const applyErrorClass = (field: (keyof FormValidation)) => {
-        if (field in errors && errors[field] === false) {
-            return ' invalid-field'
-        } else {
-            return ''
+            addOrEdit(formData, () => {
+                onRemove();
+                setUploading(false);
+            });
         }
     }
 
@@ -76,21 +76,27 @@ export default function BlogUpload(props: IProps) {
             <div className="container text-center">
                 <h4>Upload blog</h4>
             </div>
-            <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
-                <div className="card">
-                    <div className="card-body">
-                        <div className="form-group mb-2">
-                            <input type="file" name="file" ref={fileInput} id="file-uploader" className={"form-control-file" + applyErrorClass('fileName')} onChange={handleFileChange} />
-                            <Button>
-                                <UploadOutlined /> Upload file
-                            </Button>
-                        </div>
-                        <div className="form-group">
-                            <Button type="primary">Submit</Button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+
+            <Card>
+                <Upload 
+                    maxCount={1}
+                    beforeUpload={beforeUpload}
+                    onRemove={onRemove}
+                    showUploadList={showUploadList}
+                    fileList={fileList}
+                >
+                    <Button icon={<UploadOutlined />}>Select File</Button>
+                </Upload>
+                <Button
+                    type={'primary'}                    
+                    loading={uploading}
+                    disabled={typeof formValues.fileList === 'undefined'}
+                    onClick={handleFormSubmit}
+                    className="fb-blog-upload__upload-btn" 
+                >
+                    {uploading ? 'Uploading' : 'Start Upload'}
+                </Button>
+            </Card>
         </>
     )
 }

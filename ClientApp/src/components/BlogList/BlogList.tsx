@@ -1,6 +1,7 @@
 import React from 'react';
 import BlogUpload, { FileUpload } from '../BlogUpload/BlogUpload';
 import axios from 'axios';
+import { Row, Col } from 'antd';
 
 export default function BlogList() {
     const blogAPI = (url: string = 'https://localhost:44317/api/BlogModels') => {
@@ -21,13 +22,17 @@ export default function BlogList() {
     }
 
     return (
-        <div className="row">
-            <div className="col-12 mb-4">
-                <BlogUpload addOrEdit={addOrEdit} />
-            </div>
-            <div className="col-12">
-                <h4 className="text-center">List of blogs</h4>
-            </div>
+        <div className="container">
+            <Row>
+                <Col span={24}>
+                    <BlogUpload addOrEdit={addOrEdit} />
+                </Col>
+            </Row>
+            <Row>
+                <Col span={24}>
+                    <h4 className="text-center">List of blogs</h4>
+                </Col>
+            </Row>
         </div>
     )
 }
