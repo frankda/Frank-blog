@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import {Button} from "antd";
+import { UploadOutlined } from '@ant-design/icons';
 
 export interface FileUpload {
     fileName: string,
@@ -42,6 +44,7 @@ export default function BlogUpload(props: IProps) {
         return Object.values(validator).every(v => v == true)
     }
 
+    // TODO: this reset form function doesn't work
     const resetForm = () => {
         setFormValues({} as FileUpload);
         if (fileInput.current) {
@@ -71,16 +74,19 @@ export default function BlogUpload(props: IProps) {
     return (
         <>
             <div className="container text-center">
-                <p className="lead">Upload blog</p>
+                <h4>Upload blog</h4>
             </div>
             <form autoComplete="off" noValidate onSubmit={handleFormSubmit}>
                 <div className="card">
                     <div className="card-body">
-                        <div className="form-group">
+                        <div className="form-group mb-2">
                             <input type="file" name="file" ref={fileInput} id="file-uploader" className={"form-control-file" + applyErrorClass('fileName')} onChange={handleFileChange} />
+                            <Button>
+                                <UploadOutlined /> Upload file
+                            </Button>
                         </div>
                         <div className="form-group">
-                            <button type="submit" className="btn btn-light">Submit</button>
+                            <Button type="primary">Submit</Button>
                         </div>
                     </div>
                 </div>

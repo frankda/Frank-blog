@@ -230,3 +230,10 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+ClientApp/.idea/ClientApp.iml
+ClientApp/.idea/modules.xml
+ClientApp/.idea/vcs.xml
+ClientApp/.idea/inspectionProfiles/Project_Default.xml
+.vscode/launch.json
+.vscode/tasks.json
+ClientApp/.idea/.gitignore

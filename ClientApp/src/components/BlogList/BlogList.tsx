@@ -22,11 +22,11 @@ export default function BlogList() {
 
     return (
         <div className="row">
-            <div className="col-md-4">
+            <div className="col-12 mb-4">
                 <BlogUpload addOrEdit={addOrEdit} />
             </div>
-            <div className="col-md-8">
-                <div>List of blogs</div>
+            <div className="col-12">
+                <h4 className="text-center">List of blogs</h4>
             </div>
         </div>
     )

@@ -10,6 +10,7 @@ namespace FrankBlog.Data
         }
 
         // this will be used as table name
+        // Blogs is context name
         public DbSet<BlogModel> Blogs { get; set; }
     }
 }
