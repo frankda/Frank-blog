@@ -6,11 +6,11 @@ import { UploadFile } from 'antd/lib/upload/interface';
 
 export interface FileUpload {
     fileName: string,
-    fileList: File[]
+    fileList: UploadFile[]
 }
 
 interface FormValidation {
-    fileName: Boolean,
+    fileName: boolean,
 }
 
 interface IProps {
@@ -26,18 +26,12 @@ export default function BlogUpload(props: IProps) {
     const [errors, setErrors] = useState<FormValidation>({} as FormValidation);
     const [uploading, setUploading] = useState(false);
     const [showUploadList, setShowUploadList] = useState(true)
-    const [fileList, setFileList] = useState([] as UploadFile[])
 
-    const beforeUpload = (file: any) => {
-        // TODO: refactor tem
-        const tem = [] as File[];
-        tem.push(file);
+    const beforeUpload = (file: UploadFile) => {
         setFormValues({
-            // ...formValues,
-            fileList: tem,
+            fileList: [file],
             fileName: file.name
         });
-        setFileList([...fileList, file])
 
         return false;
     }
@@ -45,14 +39,13 @@ export default function BlogUpload(props: IProps) {
     const onRemove = () => {
         setFormValues({} as FileUpload);
         setErrors({} as FormValidation);
-        setFileList([] as UploadFile[]);
     };
 
     const validate = () => {
         const validator = {} as FormValidation;
         validator.fileName = formValues.fileName === '' ? false : true;
         setErrors(validator);
-        return Object.values(validator).every(v => v == true)
+        return Object.values(validator).every(v => v === true)
     }
 
     const handleFormSubmit = (e: React.FormEvent) => {
@@ -61,8 +54,8 @@ export default function BlogUpload(props: IProps) {
         if(validate()) {
             setUploading(true);
             const formData = new FormData();
+            // @ts-ignore
             formData.append('file', formValues.fileList[0]);
-            // formData.append('files[]', formValues.fileList);
             formData.append('fileName', formValues.fileName);
             addOrEdit(formData, () => {
                 onRemove();
@@ -78,21 +71,21 @@ export default function BlogUpload(props: IProps) {
             </div>
 
             <Card>
-                <Upload 
+                <Upload
                     maxCount={1}
                     beforeUpload={beforeUpload}
                     onRemove={onRemove}
                     showUploadList={showUploadList}
-                    fileList={fileList}
+                    fileList={formValues.fileList}
                 >
                     <Button icon={<UploadOutlined />}>Select File</Button>
                 </Upload>
                 <Button
-                    type={'primary'}                    
+                    type={'primary'}
                     loading={uploading}
                     disabled={typeof formValues.fileList === 'undefined'}
                     onClick={handleFormSubmit}
-                    className="fb-blog-upload__upload-btn" 
+                    className="fb-blog-upload__upload-btn"
                 >
                     {uploading ? 'Uploading' : 'Start Upload'}
                 </Button>
