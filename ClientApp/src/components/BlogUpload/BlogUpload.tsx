@@ -14,6 +14,7 @@ interface FormValidation {
 }
 
 interface IProps {
+	// eslint-disable-next-line @typescript-eslint/ban-types
     addOrEdit: Function
 }
 
@@ -54,6 +55,7 @@ const BlogUpload: React.FC<IProps> = (props: IProps) => {
 		if (validate()) {
 			setUploading(true);
 			const formData = new FormData();
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			formData.append('file', formValues.fileList[0]);
 			formData.append('fileName', formValues.fileName);
