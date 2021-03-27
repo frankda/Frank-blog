@@ -237,3 +237,5 @@ ClientApp/.idea/inspectionProfiles/Project_Default.xml
 .vscode/launch.json
 .vscode/tasks.json
 ClientApp/.idea/.gitignore
+/.idea
+/ClientApp/.idea/jsLinters
