@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Row, Col } from 'antd';
-import BlogUpload, { FileUpload } from '../BlogUpload/BlogUpload';
+import { FileUpload } from '../BlogUpload/BlogUpload';
 
 export default function BlogList() {
+  const [blogList, setBlogList] = useState([]);
+
   const blogAPI = (url = 'https://localhost:44317/api/BlogModels') => ({
     fetchAll: () => axios.get(url),
     create: (newRecord: FileUpload) => axios.post(url, newRecord),
@@ -11,22 +13,18 @@ export default function BlogList() {
     delete: (id: number) => axios.delete(url + id),
   });
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  const addOrEdit = (formData: FileUpload, onSuccess: Function) => {
-    blogAPI().create(formData)
-      .then((res) => {
-        onSuccess();
-      })
+  const refreshBlogList = () => {
+    blogAPI().fetchAll()
+      .then((res) => setBlogList(res.data))
       .catch((err) => console.error(err));
   };
 
+  useEffect(() => {
+    refreshBlogList();
+  }, [blogList]);
+
   return (
     <div className="container">
-      <Row>
-        <Col span={24}>
-          <BlogUpload addOrEdit={addOrEdit} />
-        </Col>
-      </Row>
       <Row>
         <Col span={24}>
           <h4 className="text-center">List of blogs</h4>

@@ -3,6 +3,7 @@ import { Button, Card, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import './BlogUpload.scss';
 import { UploadFile } from 'antd/lib/upload/interface';
+import axios from 'axios';
 
 export interface FileUpload {
   fileName: string,
@@ -17,15 +18,19 @@ interface IProps {
     addOrEdit: Function
 }
 
-const BlogUpload: React.FC<IProps> = (props: IProps) => {
-  // props
-  const { addOrEdit } = props;
-
-  // state
+const BlogUpload: React.FC<IProps> = () => {
   const [formValues, setFormValues] = useState<FileUpload>({} as FileUpload);
   const [errors, setErrors] = useState<FormValidation>({} as FormValidation);
   const [uploading, setUploading] = useState(false);
   const [showUploadList, setShowUploadList] = useState(true);
+
+  const uploadBlog = (formData: FormData, onSuccess: Function) => {
+    axios.post('https://localhost:44317/api/BlogModels', formData)
+      .then((res) => {
+        onSuccess();
+      })
+      .catch((err) => console.error(err));
+  };
 
   const beforeUpload = (file: UploadFile & Blob) => {
     setFormValues({
@@ -56,7 +61,7 @@ const BlogUpload: React.FC<IProps> = (props: IProps) => {
       const formData = new FormData();
       formData.append('file', formValues.fileList[0]);
       formData.append('fileName', formValues.fileName);
-      addOrEdit(formData, () => {
+      uploadBlog(formData, () => {
         onRemove();
         setUploading(false);
       });

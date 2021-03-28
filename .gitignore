@@ -239,3 +239,4 @@ ClientApp/.idea/inspectionProfiles/Project_Default.xml
 ClientApp/.idea/.gitignore
 /.idea
 /ClientApp/.idea/jsLinters
+/ClientApp/.idea/codeStyles/codeStyleConfig.xml
