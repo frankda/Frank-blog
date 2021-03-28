@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using FrankBlog.Models;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace FrankBlog
 {
@@ -50,6 +52,12 @@ namespace FrankBlog
                 app.UseHsts();
             }
 
+            // provide ability to access Blogs folder
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Blogs")),
+                RequestPath = "/Blogs"
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

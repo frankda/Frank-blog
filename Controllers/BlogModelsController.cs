@@ -29,7 +29,13 @@ namespace FrankBlog.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BlogModel>>> GetBlogs()
         {
-            return await _context.Blogs.ToListAsync();
+            return await _context.Blogs
+                .Select(blog => new BlogModel()
+                {
+                    FileName = blog.FileName,
+                    FileSrc = String.Format("{0}://{1}{2}/Blogs/{3}", Request.Scheme, Request.Host, Request.PathBase, blog.FileName)
+                })
+                .ToListAsync();
         }
 
         // GET: api/BlogModels/5
@@ -80,6 +86,8 @@ namespace FrankBlog.Controllers
         // POST: api/BlogModels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        // form itself has only a file field
+        // other field like file name need to handle by controller
         public async Task<ActionResult<BlogModel>> PostBlogModel([FromForm]BlogModel blogModel)
         {
             blogModel.FileName = await SaveBlog(blogModel.File);
