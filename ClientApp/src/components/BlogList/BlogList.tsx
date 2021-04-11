@@ -3,8 +3,14 @@ import axios from 'axios';
 import { Row, Col } from 'antd';
 import { FileUpload } from '../BlogUpload/BlogUpload';
 
+interface IBlogList {
+  id: number,
+  fileName: string,
+  fileSrc: string
+}
+
 export default function BlogList() {
-  const [blogList, setBlogList] = useState([]);
+  const [blogList, setBlogList] = useState([] as IBlogList[]);
 
   const blogAPI = (url = 'https://localhost:44317/api/BlogModels') => ({
     fetchAll: () => axios.get(url),
@@ -21,13 +27,24 @@ export default function BlogList() {
 
   useEffect(() => {
     refreshBlogList();
-  }, [blogList]);
+  }, []);
+
+  const renderBlogList = () => (
+    <>
+      {blogList.map((blog) => (
+        <h4 key={blog.id}>
+          {blog.fileName}
+        </h4>
+      ))}
+    </>
+  );
 
   return (
     <div className="container">
       <Row>
         <Col span={24}>
           <h4 className="text-center">List of blogs</h4>
+          {renderBlogList()}
         </Col>
       </Row>
     </div>
