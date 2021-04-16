@@ -1,0 +1,9 @@
+**/*.png
+**/*.svg
+package.json
+yarn.lock
+.gitignore
+.prettierignore
+.editorconfig
+build
+public
