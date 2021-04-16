@@ -4,12 +4,12 @@ import { Row, Col } from 'antd';
 import { FileUpload } from '../BlogUpload/BlogUpload';
 
 interface IBlogList {
-  id: number,
-  fileName: string,
-  fileSrc: string
+  id: number;
+  fileName: string;
+  fileSrc: string;
 }
 
-export default function BlogList() {
+const BlogList: React.FunctionComponent = () => {
   const [blogList, setBlogList] = useState([] as IBlogList[]);
 
   const blogAPI = (url = 'https://localhost:44317/api/BlogModels') => ({
@@ -20,7 +20,8 @@ export default function BlogList() {
   });
 
   const refreshBlogList = () => {
-    blogAPI().fetchAll()
+    blogAPI()
+      .fetchAll()
       .then((res) => setBlogList(res.data))
       .catch((err) => console.error(err));
   };
@@ -32,9 +33,7 @@ export default function BlogList() {
   const renderBlogList = () => (
     <>
       {blogList.map((blog) => (
-        <h4 key={blog.id}>
-          {blog.fileName}
-        </h4>
+        <h4 key={blog.id}>{blog.fileName}</h4>
       ))}
     </>
   );
@@ -49,4 +48,6 @@ export default function BlogList() {
       </Row>
     </div>
   );
-}
+};
+
+export default BlogList;
