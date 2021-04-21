@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Row, Col } from 'antd';
 import { FileUpload } from '../BlogUpload/BlogUpload';
+import './BlogList.scss';
 
 interface IBlogList {
   id: number;
   fileName: string;
   fileSrc: string;
 }
+
+const fakeData: IBlogList[] = [
+  { id: 0, fileName: 'first article', fileSrc: '' },
+  { id: 1, fileName: 'second article', fileSrc: '' },
+];
 
 const BlogList: React.FunctionComponent = () => {
   const [blogList, setBlogList] = useState([] as IBlogList[]);
@@ -30,22 +35,28 @@ const BlogList: React.FunctionComponent = () => {
     refreshBlogList();
   }, []);
 
-  const renderBlogList = () => (
-    <>
-      {blogList.map((blog) => (
-        <h4 key={blog.id}>{blog.fileName}</h4>
+  const renderBlogList = (blogs: IBlogList[]) => (
+    <div className="blog-list">
+      {blogs.map((blog) => (
+        <div className="blog-list__blog-row" key={blog.id}>
+          <time>Apr 06</time>
+          <h3>{blog.fileName}</h3>
+        </div>
       ))}
-    </>
+    </div>
   );
 
   return (
+
     <div className="container">
-      <Row>
-        <Col span={24}>
-          <h4 className="text-center">List of blogs</h4>
-          {renderBlogList()}
-        </Col>
-      </Row>
+      <div className="row">
+        <div className="col">
+          {/* h2 can be category name */}
+          <h2>Blogs</h2>
+          {renderBlogList(fakeData)}
+          {/* {renderBlogList(blogList)} */}
+        </div>
+      </div>
     </div>
   );
 };

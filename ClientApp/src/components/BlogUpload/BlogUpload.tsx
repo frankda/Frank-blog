@@ -14,17 +14,13 @@ interface FormValidation {
   fileName: boolean,
 }
 
-interface IProps {
-    addOrEdit: Function
-}
-
-const BlogUpload: React.FC<IProps> = () => {
+const BlogUpload: React.FC = () => {
   const [formValues, setFormValues] = useState<FileUpload>({} as FileUpload);
   const [errors, setErrors] = useState<FormValidation>({} as FormValidation);
   const [uploading, setUploading] = useState(false);
   const [showUploadList, setShowUploadList] = useState(true);
 
-  const uploadBlog = (formData: FormData, onSuccess: Function) => {
+  const uploadBlog = (formData: FormData, onSuccess: () => any) => {
     axios.post('https://localhost:44317/api/BlogModels', formData)
       .then((res) => {
         onSuccess();
