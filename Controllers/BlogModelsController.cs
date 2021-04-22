@@ -10,6 +10,9 @@ using FrankBlog.Data;
 using FrankBlog.Models;
 using System.IO;
 
+using System.Net;
+using System.Net.Http;
+
 namespace FrankBlog.Controllers
 {
     [Route("api/[controller]")]
@@ -121,8 +124,18 @@ namespace FrankBlog.Controllers
         [NonAction]
         public async Task<string> SaveBlog(IFormFile file)
         {
-            string fileName = new String(Path.GetFileNameWithoutExtension(file.FileName).Take(10).ToArray()).Replace(' ', '-');
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(file.FileName);
+            string fileName = new String(Path.GetFileNameWithoutExtension(file.FileName).ToArray()).Replace(' ', '-');
+            var existingBlog = _context.Blogs
+                .Where(b => b.FileName.Contains(fileName))
+                .ToList();
+            // TODO: handle error when submitted doc existed in database
+            //if (existingBlog.Any())
+            //{
+            //    Console.WriteLine("handle error");
+
+            //    throw new System.Web.Http.HttpResponseException(HttpStatusCode.NotFound);
+            //}
+            fileName += Path.GetExtension(file.FileName);
             var filePath = Path.Combine(_hostEnvironment.ContentRootPath, "Blogs", fileName);
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
