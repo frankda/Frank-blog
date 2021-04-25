@@ -47,12 +47,10 @@ const BlogList: React.FunctionComponent = () => {
   );
 
   return (
-
     <div className="container">
       <div className="row">
         <div className="col">
           {/* h2 can be category name */}
-          <h2>Blogs</h2>
           {renderBlogList(fakeData)}
           {/* {renderBlogList(blogList)} */}
         </div>
