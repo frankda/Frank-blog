@@ -10,9 +10,6 @@ using FrankBlog.Data;
 using FrankBlog.Models;
 using System.IO;
 
-using System.Net;
-using System.Net.Http;
-
 namespace FrankBlog.Controllers
 {
     [Route("api/[controller]")]
