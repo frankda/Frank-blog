@@ -91,6 +91,7 @@ namespace FrankBlog.Controllers
         public async Task<ActionResult<BlogModel>> PostBlogModel([FromForm]BlogModel blogModel)
         {
             blogModel.FileName = await SaveBlog(blogModel.File);
+            blogModel.CreatedDate = DateTime.Now; 
             _context.Blogs.Add(blogModel);
             await _context.SaveChangesAsync();
 
