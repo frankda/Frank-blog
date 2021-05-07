@@ -15,6 +15,7 @@ namespace FrankBlog.Models
 
         public string FileSrc { get; set; }
 
+        public DateTime CreatedDate { get; set; }
         // not mapped means not save to sql server
         [NotMapped]
         public IFormFile File { get; set; }
