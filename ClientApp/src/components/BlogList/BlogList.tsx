@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FileUpload } from '../BlogUpload/BlogUpload';
-import './BlogList.scss';
+import { FileUpload } from 'components/BlogUpload/BlogUpload';
+// import './BlogList.scss';
 
 interface IBlogList {
   id: number;

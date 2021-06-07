@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Card, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import './BlogUpload.scss';
 import { UploadFile } from 'antd/lib/upload/interface';
 import axios from 'axios';
 
