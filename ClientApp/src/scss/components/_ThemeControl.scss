@@ -1,0 +1,8 @@
+.theme-control {
+  border-radius: 50%;
+  cursor: pointer;
+  @include themify(color);
+  background-color: darkgray;
+  border: none;
+}
+
