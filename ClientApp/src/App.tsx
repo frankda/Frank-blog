@@ -4,18 +4,23 @@ import {
   BrowserRouter,
   Route,
 } from 'react-router-dom';
-import BlogList from './components/BlogList/BlogList';
-import BlogUpload from './components/BlogUpload/BlogUpload';
-import Navigation from './components/Navigation/Navigation';
+import { ThemeProvider } from 'context/GlobalContext';
+import ThemeControl from 'components/ThemeControl/ThemeControl';
+import BlogUpload from 'components/BlogUpload/BlogUpload';
+import BlogPage from 'pages/BlogPage/BlogPage';
+
+import 'config/fontawesome';
 
 const App: React.FC = () => (
-  <div className="app">
-    <Navigation />
-    <BrowserRouter>
-      <Route exact path="/" component={BlogList} />
-      <Route path="/upload" component={BlogUpload} />
-    </BrowserRouter>
-  </div>
+  <ThemeProvider>
+    <div className="app">
+      <BrowserRouter>
+        <Route exact path="/" component={BlogPage} />
+        <Route path="/upload" component={BlogUpload} />
+      </BrowserRouter>
+      <ThemeControl />
+    </div>
+  </ThemeProvider>
 );
 
 export default App;
