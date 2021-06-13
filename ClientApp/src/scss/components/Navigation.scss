@@ -1,0 +1,12 @@
+.navigation {
+  margin: gutter-size(8) 0;
+  &__links-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &__link {
+    @include themify(color);
+    margin: 0 gutter-size(3);
+  }
+}

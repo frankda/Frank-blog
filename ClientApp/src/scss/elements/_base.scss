@@ -1,0 +1,6 @@
+a {
+  text-decoration: none;
+  #{$interact} {
+    text-decoration: none;
+  }
+}
