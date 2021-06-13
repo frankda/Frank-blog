@@ -20,7 +20,7 @@
 @import '~bootstrap/dist/css/bootstrap-utilities.css';
 
 // antd https://ant.design/docs/react/introduce
-@import "~antd/dist/antd.css";
+// @import "~antd/dist/antd.css";
 
 // elements
 // --------------------------------------------------
@@ -37,6 +37,7 @@
 @import 'scss/components/BlogList';
 @import 'scss/components/BlogUpload';
 @import 'scss/components/ThemeControl';
+@import 'scss/components/Navigation';
 
 // utilities
 // --------------------------------------------------

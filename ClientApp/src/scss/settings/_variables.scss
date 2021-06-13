@@ -8,5 +8,19 @@ $themes: (
   ),
 );
 
+// ---------------------------------------------------------------------
+// layout
+// ---------------------------------------------------------------------
+$xs: 0;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+$spacer: 4px;
+@function gutter-size($gutter-multiplier) {
+	@return $spacer * $gutter-multiplier;
+}
+
 // link states
 $interact: '&:focus, &:hover, &:active';

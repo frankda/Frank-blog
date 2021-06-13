@@ -4,5 +4,11 @@
   @include themify(color);
   background-color: darkgray;
   border: none;
+  position: fixed;
+  right: gutter-size(10);
+  bottom: gutter-size(10);
+  height: gutter-size(10);
+  width: gutter-size(10);
+  font-size: gutter-size(5);
 }
 

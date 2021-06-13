@@ -2,5 +2,12 @@
   &__blog-row {
     display: flex;
     align-items: center;
+    time {
+      flex: 0 0 gutter-size(18);
+      @include themify(color);
+      @media (min-width: $md) {
+        flex: 0 0 gutter-size(25);
+      }
+    }
   }
 }
