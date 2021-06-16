@@ -11,6 +11,8 @@ import BlogPage from 'pages/BlogPage/BlogPage';
 
 import 'config/fontawesome';
 
+import Content from './test.mdx';
+
 const App: React.FC = () => {
   const { currentTheme } = useContext(ThemeContext);
   return (
@@ -20,6 +22,8 @@ const App: React.FC = () => {
         <Route path="/upload" component={BlogUpload} />
       </BrowserRouter>
       <ThemeControl />
+
+      <Content />
     </div>
   );
 };
