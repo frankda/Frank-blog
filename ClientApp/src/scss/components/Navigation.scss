@@ -6,7 +6,7 @@
     justify-content: flex-end;
   }
   &__link {
-    @include themify(color);
+    @include themify(color, color-primary);
     margin: 0 gutter-size(3);
   }
 }

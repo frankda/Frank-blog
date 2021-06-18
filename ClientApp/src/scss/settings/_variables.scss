@@ -1,10 +1,13 @@
 // Themes configuration
 $themes: (
   light: (
-    primary-color: #000000
+    color-primary: #000000,
+    bg-primary: #ffffff
   ),
   dark: (
-    primary-color: #E0E0E0
+    color-primary: #C9CBCF,
+    color-title: #DADBD0,
+    bg-primary: #121418,
   ),
 );
 

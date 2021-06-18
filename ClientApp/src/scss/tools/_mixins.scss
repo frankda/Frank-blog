@@ -1,7 +1,7 @@
-@mixin themify ($property) {
+@mixin themify ($property, $value) {
   @each $theme, $values in $themes {
     .#{$theme} &  {
-      #{$property}: map-get($values, primary-color);
+      #{$property}: map-get($values, $value);
     }
   }
 }

@@ -1,7 +1,7 @@
 .theme-control {
   border-radius: 50%;
   cursor: pointer;
-  @include themify(color);
+  @include themify(color, color-primary);
   background-color: darkgray;
   border: none;
   position: fixed;

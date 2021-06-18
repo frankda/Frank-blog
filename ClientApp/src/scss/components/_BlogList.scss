@@ -4,7 +4,7 @@
     align-items: center;
     time {
       flex: 0 0 gutter-size(18);
-      @include themify(color);
+      @include themify(color, color-primary);
       @media (min-width: $md) {
         flex: 0 0 gutter-size(25);
       }
