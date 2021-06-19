@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './App.scss';
 import {
   BrowserRouter,
@@ -11,10 +11,13 @@ import BlogPage from 'pages/BlogPage/BlogPage';
 
 import 'config/fontawesome';
 
-import Content from './test.mdx';
+import Content, { metaData } from 'blogs/test.mdx';
 
 const App: React.FC = () => {
   const { currentTheme } = useContext(ThemeContext);
+  useEffect(() => {
+    console.log(metaData);
+  });
   return (
     <div className={`app ${currentTheme}`}>
       <BrowserRouter>

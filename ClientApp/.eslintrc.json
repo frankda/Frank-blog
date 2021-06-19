@@ -36,7 +36,15 @@
         "no-console": 0,
         "arrow-body-style": 0,
         "no-unused-vars": [1, { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "@typescript-eslint/ban-types": ["error",
+          {
+              "types": {
+                  "object": false
+              },
+              "extendDefaults": true
+          }
+      ]
     },
     "settings": {
         "import/resolver": {
