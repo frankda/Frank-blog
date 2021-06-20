@@ -14,7 +14,19 @@ module.exports = (config, _env) => {
           loader: babelLoader.loader,
           options: babelLoader.options,
         },
-        '@mdx-js/loader',
+        'mdx-frontmatter-loader',
+        {
+          loader: '@mdx-js/loader',
+          options: {
+            remarkPlugins: [
+              [
+                // Removes front-matter from Markdown output
+                require('remark-frontmatter'),
+                { type: 'yaml', marker: '-', fence: '---' },
+              ],
+            ],
+          },
+        }
       ],
     });
 

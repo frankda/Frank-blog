@@ -11,12 +11,13 @@ import BlogPage from 'pages/BlogPage/BlogPage';
 
 import 'config/fontawesome';
 
-import Content, { metaData } from 'blogs/test.mdx';
+// import Content, { metaData } from 'blogs/test.mdx';
+import Content, { attributes } from 'blogs/test.mdx';
 
 const App: React.FC = () => {
   const { currentTheme } = useContext(ThemeContext);
   useEffect(() => {
-    console.log(metaData);
+    console.log(attributes);
   });
   return (
     <div className={`app ${currentTheme}`}>
